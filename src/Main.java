@@ -1,6 +1,10 @@
 //Luigi G. Marchetti
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Main {
+    static Boolean isDirigo;
     public static void main(String[] args) {
         int[][] matriz1 = {
                 {0, 1, 0, 1},
@@ -25,22 +29,26 @@ public class Main {
         System.out.println("Matriz 1:");
         imprimir(matriz1);
         System.out.println(tipoDoGrafo(matriz1));
+        System.out.println(arestasDoGrafo(matriz1));
+        System.out.println(grausDoVertice(matriz1));
 
         System.out.println("\nMatriz 2:");
         imprimir(matriz2);
         System.out.println(tipoDoGrafo(matriz2));
+        System.out.println(arestasDoGrafo(matriz2));
+        System.out.println(grausDoVertice(matriz2));
 
         System.out.println("\nMatriz 3:");
         imprimir(matriz3);
         System.out.println(tipoDoGrafo(matriz3));
-
-
+        System.out.println(arestasDoGrafo(matriz3));
+        System.out.println(grausDoVertice(matriz3));
     }
 
     public static String tipoDoGrafo(int[][] matriz) {
         //Dirigido ou Não-Dirigido
         //Nulo
-        Boolean isDirigo = false;
+        isDirigo = false;
         Boolean isNulo = true;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
@@ -103,7 +111,53 @@ public class Main {
 
 
 
-        String ret = dirigidoOuNao + " - " + simplesOuMulti + " - " + regular + " - " + completo;
+        String ret = isDirigo ? "Dirigido": "Não-Dirigido";
+        ret += isNulo ? " - Nulo": "";
+        ret += " - " + simplesOuMulti + " - " + regular + " - " + completo;
+        return ret;
+    }
+
+    public static String arestasDoGrafo(int[][] matriz) {
+        String ret = "";
+        String conjuntoArestas = "{";
+        int arestasCount = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] > 0) {
+                    int conjuntoAtualCount = matriz[i][j];
+                    arestasCount += conjuntoAtualCount;
+                    for (int count = 0; count < conjuntoAtualCount; count++) {
+                        conjuntoArestas += " (" + (i+1) + ", " + (j+1) + ") ";
+                    }
+
+                }
+            }
+        }
+        conjuntoArestas += "}";
+
+        if (!isDirigo) {
+            arestasCount /= 2;
+        }
+        ret = "Quantidade de Arestas: " + arestasCount ;
+        ret += "\nConjunto de arestas: " + conjuntoArestas;
+        return ret;
+    }
+
+    public static String grausDoVertice(int[][] matriz) {
+        ArrayList listaDeGraus = new ArrayList<>();
+        String ret = "";
+
+        int grau;
+        for (int i = 0; i < matriz.length; i++) {
+            grau = 0;
+            for (int j = 0; j < matriz.length; j++) {
+                grau += matriz[i][j];
+            }
+            listaDeGraus.add(grau);
+            ret += "\nGrau do vértice " + (i+1) + " = " + grau;
+        }
+        Collections.sort(listaDeGraus);
+        ret += "\n" + listaDeGraus.toString();
         return ret;
     }
 
