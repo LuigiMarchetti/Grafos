@@ -36,13 +36,13 @@ public class Main {
         System.out.println(arestasDoGrafo(matriz1));
         System.out.println(grausDoVertice(matriz1));
 
-        System.out.println("\nMatriz 2:");
+        System.out.println("\n\nMatriz 2:");
         imprimir(matriz2);
         System.out.println(tipoDoGrafo(matriz2));
         System.out.println(arestasDoGrafo(matriz2));
         System.out.println(grausDoVertice(matriz2));
 
-        System.out.println("\nMatriz 3:");
+        System.out.println("\n\nMatriz 3:");
         imprimir(matriz3);
         System.out.println(tipoDoGrafo(matriz3));
         System.out.println(arestasDoGrafo(matriz3));
@@ -119,8 +119,6 @@ public class Main {
         }
 
         //Grafo Bipartido
-        ArrayList conjunto1 = new ArrayList<>();
-        ArrayList conjunto2 = new ArrayList<>();
         Boolean isBipartido = true;
 
         //Verifica se possui algum k3
@@ -134,44 +132,6 @@ public class Main {
                 }
             }
         }
-
-        /*primalLoop: for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] > 0) {
-
-                }
-
-                if (i == 0 && j == 0) {
-                    conjunto1.add(i);
-                }
-                if (matriz[i][j] > 0 && i != j) {
-                    if (i == 0) {
-                        conjunto2.add(j);
-                    }
-
-                    if (conjunto1.contains(j)) {
-                        conjunto1.add(i);
-                    } else if (conjunto2.contains(j)) {
-                        conjunto2.add(i);
-                    }
-
-                    if (conjunto1.contains(i) && !conjunto2.contains(j)) {
-                        conjunto2.add(j);
-                    } else if (conjunto2.contains(i) && !conjunto1.contains(j)) {
-                        conjunto2.add(j);
-                    } else {
-                        isBipartido = false;
-                        break primalLoop;
-                    }
-
-
-                }
-            }
-        }*/
-        //System.out.println("Conjunto1 " + conjunto1.toString());
-        //System.out.println("Conjunto2 " + conjunto2.toString());
-
-
 
         String ret = isDirigo ? "Dirigido": "Não-Dirigido";
         ret += " - " + simplesOuMulti + (isRegular ? " - Regular": "") + (isCompleto ? " - Completo": "") + (isBipartido ? " - Bipartido": "");
@@ -215,10 +175,10 @@ public class Main {
                 grau += matriz[i][j];
             }
             listaDeGraus.add(grau);
-            ret += "\nGrau do vértice " + (i+1) + " = " + grau;
+            ret += "Grau do vértice " + (i+1) + " = " + grau + "\n";
         }
         Collections.sort(listaDeGraus);
-        ret += "\n" + listaDeGraus.toString();
+        ret += "Sequência de grau: " + listaDeGraus.toString();
         return ret;
     }
 
