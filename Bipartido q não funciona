@@ -1,0 +1,35 @@
+/*primalLoop: for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] > 0) {
+
+                }
+
+                if (i == 0 && j == 0) {
+                    conjunto1.add(i);
+                }
+                if (matriz[i][j] > 0 && i != j) {
+                    if (i == 0) {
+                        conjunto2.add(j);
+                    }
+
+                    if (conjunto1.contains(j)) {
+                        conjunto1.add(i);
+                    } else if (conjunto2.contains(j)) {
+                        conjunto2.add(i);
+                    }
+
+                    if (conjunto1.contains(i) && !conjunto2.contains(j)) {
+                        conjunto2.add(j);
+                    } else if (conjunto2.contains(i) && !conjunto1.contains(j)) {
+                        conjunto2.add(j);
+                    } else {
+                        isBipartido = false;
+                        break primalLoop;
+                    }
+
+
+                }
+            }
+        }*/
+        //System.out.println("Conjunto1 " + conjunto1.toString());
+        //System.out.println("Conjunto2 " + conjunto2.toString());
