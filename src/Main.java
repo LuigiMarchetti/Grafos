@@ -7,10 +7,14 @@ public class Main {
     static Boolean isDirigo;
     public static void main(String[] args) {
         int[][] matriz1 = {
-                {0, 1, 0, 1},
-                {1, 0, 1, 0},
-                {0, 1, 0, 1},
-                {1, 0, 1, 0}
+                {0, 1, 1, 0, 0, 0, 0, 0},
+                {0, 0, 0, 1, 0, 0, 0, 0},
+                {0, 0, 0, 1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0, 0, 1, 0},
+                {0, 0, 0, 0, 0, 0, 0, 1},
+                {1, 0, 0, 0, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
         int[][] matriz2 = {
@@ -69,22 +73,22 @@ public class Main {
 
         //Simples ou Multigrafo
         String simplesOuMulti = "Simples";
-            primalLoop: for (int i = 0; i < matriz.length; i++) {
-                for (int j = 0; j < matriz.length; j++) {
-                    if (matriz[i][j] > 1) {
-                        simplesOuMulti = "Multigrafo";
-                        break primalLoop;
-                    }
-                    if (i == j && matriz[i][j] != 0) {
-                        simplesOuMulti = "Multigrafo";
-                        break primalLoop;
-                    }
-                    if (isDirigo && matriz[i][j] > 0 && matriz[j][i] > 0) {
-                        simplesOuMulti = "Multigrafo";
-                        break primalLoop;
-                    }
+        primalLoop: for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] > 1) {
+                    simplesOuMulti = "Multigrafo";
+                    break primalLoop;
+                }
+                if (i == j && matriz[i][j] != 0) {
+                    simplesOuMulti = "Multigrafo";
+                    break primalLoop;
+                }
+                if (isDirigo && matriz[i][j] > 0 && matriz[j][i] > 0) {
+                    simplesOuMulti = "Multigrafo";
+                    break primalLoop;
                 }
             }
+        }
 
 
         //Grafo Regular
@@ -120,7 +124,7 @@ public class Main {
         Boolean isBipartido = true;
 
         //Verifica se possui algum k3
-         primalLoop: for (int i = 0; i < matriz.length; i++) {
+        primalLoop: for (int i = 0; i < matriz.length; i++) {
             for (int j = i + 1; j < matriz.length; j++) {
                 for (int k = j + 1; k < matriz.length; k++) {
                     if (matriz[i][j] == 1 && matriz[j][k] == 1 && matriz[i][k] == 1) {
@@ -226,5 +230,4 @@ public class Main {
             System.out.println();
         }
     }
-    
 }
