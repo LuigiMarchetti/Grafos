@@ -21,7 +21,7 @@ public class Main {
         };
 
         int[][] matriz3 = {
-                {0, 1, 0},
+                {0, 1, 1},
                 {1, 0, 1},
                 {1, 1, 0}
         };
@@ -62,6 +62,11 @@ public class Main {
             }
         }
 
+        if (isNulo) {
+            return "Nulo";
+        }
+
+
         //Simples ou Multigrafo
         String simplesOuMulti = "Simples";
             primalLoop: for (int i = 0; i < matriz.length; i++) {
@@ -83,7 +88,7 @@ public class Main {
 
 
         //Grafo Regular
-        String regular = "Regular";
+        Boolean isRegular = true;
         int linha1;
         int linha2 = 0;
         primalLoop: for (int i = 0; i < matriz.length; i++) {
@@ -92,28 +97,80 @@ public class Main {
                 linha1 += matriz[i][j];
             }
             if (linha1 != linha2 && i != 0){
-                regular = "Não Regular";
+                isRegular = false;
                 break primalLoop;
             }
             linha2 = linha1;
         }
 
         //Grafo Completo
-        String completo = "Completo";
+        Boolean isCompleto = true;
         primalLoop: for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] != 1 && !(i == j && matriz[i][j] == 0)) {
-                    completo = "Não Completo";
+                if ((matriz[i][j] != 1 && !(i == j && matriz[i][j] == 0)) || (i == j && matriz[i][j] != 0)) {
+                    isCompleto = false;
+                    break primalLoop;
                 }
             }
         }
 
+        //Grafo Bipartido
+        ArrayList conjunto1 = new ArrayList<>();
+        ArrayList conjunto2 = new ArrayList<>();
+        Boolean isBipartido = true;
+
+        //Verifica se possui algum k3
+         primalLoop: for (int i = 0; i < matriz.length; i++) {
+            for (int j = i + 1; j < matriz.length; j++) {
+                for (int k = j + 1; k < matriz.length; k++) {
+                    if (matriz[i][j] == 1 && matriz[j][k] == 1 && matriz[i][k] == 1) {
+                        isBipartido = false;
+                        break primalLoop;
+                    }
+                }
+            }
+        }
+
+        /*primalLoop: for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] > 0) {
+
+                }
+
+                if (i == 0 && j == 0) {
+                    conjunto1.add(i);
+                }
+                if (matriz[i][j] > 0 && i != j) {
+                    if (i == 0) {
+                        conjunto2.add(j);
+                    }
+
+                    if (conjunto1.contains(j)) {
+                        conjunto1.add(i);
+                    } else if (conjunto2.contains(j)) {
+                        conjunto2.add(i);
+                    }
+
+                    if (conjunto1.contains(i) && !conjunto2.contains(j)) {
+                        conjunto2.add(j);
+                    } else if (conjunto2.contains(i) && !conjunto1.contains(j)) {
+                        conjunto2.add(j);
+                    } else {
+                        isBipartido = false;
+                        break primalLoop;
+                    }
+
+
+                }
+            }
+        }*/
+        //System.out.println("Conjunto1 " + conjunto1.toString());
+        //System.out.println("Conjunto2 " + conjunto2.toString());
 
 
 
         String ret = isDirigo ? "Dirigido": "Não-Dirigido";
-        ret += isNulo ? " - Nulo": "";
-        ret += " - " + simplesOuMulti + " - " + regular + " - " + completo;
+        ret += " - " + simplesOuMulti + (isRegular ? " - Regular": "") + (isCompleto ? " - Completo": "") + (isBipartido ? " - Bipartido": "");
         return ret;
     }
 
@@ -169,4 +226,5 @@ public class Main {
             System.out.println();
         }
     }
+    
 }
